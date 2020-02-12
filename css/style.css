@@ -1,0 +1,103 @@
+
+html {
+    font-family: 'Roboto', sans-serif;
+    text-align: center;
+}
+
+
+#top {
+    margin: auto;
+    padding: 10px;
+    border: 1px;
+    border-style: solid;
+    border-color: lightgray;
+    width: 50%;
+    min-width: 500px;
+}
+
+#top > input {
+    width: inherit;
+}
+
+#top > button {
+    display: inline-block;
+    font-family: 'Roboto', sans-serif;
+    text-decoration: none;
+    border: none;
+    padding: 10px;
+}
+
+#add-div {
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+}
+
+#add-div > * {
+    margin: 2px;
+}
+
+#add-div > .add-button {
+    display: inline-block;
+    font-family: 'Roboto', sans-serif;
+    text-decoration: none;
+    border: none;
+    padding: 10px;
+    text-align: center;
+    margin: auto;
+    width: 75px;
+}
+
+.hover:hover {
+    background-color: lightgray;
+}
+
+#flex-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.flex-item {
+    margin: auto;
+    padding: 10px;
+    border: 1px;
+    border-style: solid;
+    border-color: lightgray;;
+    width: 40%;
+    min-width: 500px;
+    text-align: left;
+    position: relative;
+    display: flex;
+    flex-direction: row;
+}
+
+.flex-item * {
+    padding: 5px;
+}
+
+.flex-item > img {
+    border-radius: 20%;
+    width: 72px;
+    height: 72px;
+}
+
+.flex-item > .description {
+    width:70%;
+}
+
+span {
+}
+
+.flex-item > .del-button {
+    position: absolute;
+    right: 20px;
+    top: 33%;
+    bottom: 33%;
+    font-family: 'Roboto', sans-serif;
+    text-decoration: none;
+    border: none;
+    padding: 10px;
+    color: white;
+    background-color: red;
+}
+
