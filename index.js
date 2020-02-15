@@ -10,33 +10,41 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.static(__dirname + '/public'));
 
-// viewed at http://localhost:8080
+// viewed at http://localhost:8888
 app.get('/', function (req, res) {
     res.sendFile(path.join(__dirname + '/index.html'));
 });
 
+/**
+ * Saves content to artists.json.
+ */
 app.post('/saveartists', function (req, res) {
-    res.send('saving list of artists');
+    res.send('saving to artists.json');
 
     var data = JSON.stringify(req.body);
     console.log(data);
-    // const data = new Uint8Array(Buffer.from(req.query.artists));
     if (data) {
         fs.writeFile('artists.json', data, (err) => {
             if (err) throw err;
-            console.log('The file has been saved!');
+            console.log('saved to artists.json');
         });
     }
 });
 
+/**
+ * Returns content of artists.json.
+ */
 app.get('/loadartists', function (req, res) {
-    // res.sendFile(path.join(__dirname + '/test.json'));
+    console.log('reading artists.json')
     fs.readFile('artists.json', (err, data) => {
         if (err) throw err;
-        console.log(data);
+        console.log('Loading artists');
+        console.log(JSON.stringify(data));
         res.send(data);
+        res.send('loaded artists.json');
     });
 });
 
-app.listen(8888);
-console.log('server started')
+let port = 8888;
+app.listen(port);
+console.log('server started\n listening on port' + port);

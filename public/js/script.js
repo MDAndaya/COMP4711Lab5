@@ -3,6 +3,9 @@ localStorage.clear();
 
 loadArtists();
 
+/**
+ * fetch() request for data from node express server index.js
+ */
 async function loadArtists() {
 
     var artists = [];
@@ -27,28 +30,13 @@ async function loadArtists() {
     } else {
         alert("HTTP-Error: " + response.status);
     }
-
-    // var theUrl = "http://localhost:8888";
-    // var xmlHttp = new XMLHttpRequest();
-    // xmlHttp.onreadystatechange = function () {
-    //     if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
-    //         console.log(xmlHttp.responseText);
-    //         if (artists = JSON.parse(xmlHttp.responseText)) {
-    //             for (var i = 0; i < artists.length; i++) {
-    //                 let a = artists[i];
-    //                 addArtist(a.name, a.about, a.imageurl);
-    //             }
-    //         }
-    //     }
-    // }
-    // xmlHttp.open("GET", theUrl + "/loadartists", true); // true for asynchronous 
-    // xmlHttp.send(null);
 }
 
+// Clears search filters applied to the web page.
 clearSearch();
 
 /**
- * Creates input boxes and input button.
+ * Generates input nodes to create a new artist card.
  */
 function createArtistParams() {
 
@@ -89,8 +77,7 @@ function createArtistParams() {
 }
 
 /**
- * Adds artist to artists array saved to local storage and creates card to
- * add to container.
+ * Collects parameters for artist card and sends to addArtist() function.
  */
 function addArtistButton() {
     let name = document.getElementById("field-name").value;
@@ -109,10 +96,10 @@ function addArtistButton() {
 }
 
 /**
- * 
- * @param {Name of artist} name 
- * @param {About the artist} about 
- * @param {URL for artist image} imageurl 
+ * Adds the artist to the html page and calls the saveArtists() function.
+ * @param {*} name 
+ * @param {*} about 
+ * @param {*} imageurl 
  */
 function addArtist(name, about, imageurl) {
 
@@ -155,6 +142,9 @@ function addArtist(name, about, imageurl) {
     saveArtists();
 }
 
+/**
+ * fetch() request to post artists JSON array to index.js.
+ */
 async function saveArtists() {
 
     // element to search through
@@ -199,11 +189,18 @@ async function saveArtists() {
     }
 }
 
+/**
+ * Deletes node from web page and saves new list of artists.
+ * @param {*} child 
+ */
 function deleteNode(child) {
     child.parentNode.remove();
     saveArtists();
 }
 
+/**
+ * Filters through artist nodes and hides nodes with non-matching names.
+ */
 function search() {
 
     // element to search through
@@ -236,6 +233,9 @@ function search() {
     }
 }
 
+/**
+ * Reveals all hidden artist nodes.
+ */
 function clearSearch() {
 
     console.log("clearing");
