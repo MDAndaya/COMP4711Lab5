@@ -3,25 +3,46 @@ localStorage.clear();
 
 loadArtists();
 
-function loadArtists() {
+async function loadArtists() {
 
     var artists = [];
 
-    var theUrl = "http://localhost:8888";
-    var xmlHttp = new XMLHttpRequest();
-    xmlHttp.onreadystatechange = function () {
-        if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
-            console.log(xmlHttp.responseText);
-            if (artists = JSON.parse(xmlHttp.responseText)) {
-                for (var i = 0; i < artists.length; i++) {
-                    let a = artists[i];
-                    addArtist(a.name, a.about, a.imageurl);
-                }
+    let url = 'http://localhost:8888/loadartists';
+    let response = await fetch(url,
+        {
+            method: 'GET'
+        });
+
+    if (response.ok) { // if HTTP-status is 200-299
+        // get the response body (the method explained below)
+        console.log(artists);
+        if (artists = await response.json()) {
+            for (var i = 0; i < artists.length; i++) {
+                let a = artists[i];
+                addArtist(a.name, a.about, a.imageurl);
             }
         }
+
+
+    } else {
+        alert("HTTP-Error: " + response.status);
     }
-    xmlHttp.open("GET", theUrl + "/loadartists", true); // true for asynchronous 
-    xmlHttp.send(null);
+
+    // var theUrl = "http://localhost:8888";
+    // var xmlHttp = new XMLHttpRequest();
+    // xmlHttp.onreadystatechange = function () {
+    //     if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
+    //         console.log(xmlHttp.responseText);
+    //         if (artists = JSON.parse(xmlHttp.responseText)) {
+    //             for (var i = 0; i < artists.length; i++) {
+    //                 let a = artists[i];
+    //                 addArtist(a.name, a.about, a.imageurl);
+    //             }
+    //         }
+    //     }
+    // }
+    // xmlHttp.open("GET", theUrl + "/loadartists", true); // true for asynchronous 
+    // xmlHttp.send(null);
 }
 
 clearSearch();
@@ -134,8 +155,7 @@ function addArtist(name, about, imageurl) {
     saveArtists();
 }
 
-
-function saveArtists() {
+async function saveArtists() {
 
     // element to search through
     let element = document.getElementById("flex-container");
@@ -158,17 +178,25 @@ function saveArtists() {
         artists.push(a);
     }
 
-    var theUrl = "http://localhost:8888";
-    var xmlHttp = new XMLHttpRequest();
-    xmlHttp.onreadystatechange = function () {
-        if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
-            // callback(xmlHttp.responseText);
-            console.log(xmlHttp.responseText);
-    }
-    xmlHttp.open("GET", theUrl + "/saveartists" + "?artists=" + JSON.stringify(artists), true); // true for asynchronous 
-    xmlHttp.send(null);
+    let url = 'http://localhost:8888/saveartists';
+    let response = await fetch(url,
+        {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(artists)
+        });
 
-    // localStorage.setItem('artists', JSON.stringify(artists));
+    if (response.ok) { // if HTTP-status is 200-299
+        // get the response body (the method explained below)
+        if (response = await response.text()) {
+            console.log(response);
+        }
+    } else {
+        alert("HTTP-Error: " + response.status);
+    }
 }
 
 function deleteNode(child) {
