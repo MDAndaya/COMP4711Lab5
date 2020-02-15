@@ -19,7 +19,7 @@ app.get('/', function (req, res) {
  * Saves content to artists.json.
  */
 app.post('/saveartists', function (req, res) {
-    res.send('saving to artists.json');
+    console.log('saving to artist.json');
 
     var data = JSON.stringify(req.body);
     console.log(data);
@@ -39,12 +39,10 @@ app.get('/loadartists', function (req, res) {
     fs.readFile('artists.json', (err, data) => {
         if (err) throw err;
         console.log('Loading artists');
-        console.log(JSON.stringify(data));
         res.send(data);
-        res.send('loaded artists.json');
     });
 });
 
 let port = 8888;
 app.listen(port);
-console.log('server started\n listening on port' + port);
+console.log('server started\nlistening on port' + port);
