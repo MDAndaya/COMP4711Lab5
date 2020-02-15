@@ -24,13 +24,6 @@ function loadArtists() {
     xmlHttp.send(null);
 }
 
-// if (artists = JSON.parse(localStorage.getItem('artists'))) {
-//     for (var i = 0; i < artists.length; i++) {
-//         let a = artists[i];
-//         addArtist(a.name, a.about, a.imageurl);
-//     }
-// }
-
 clearSearch();
 
 /**
@@ -229,16 +222,3 @@ function clearSearch() {
     }
 }
 
-function test()//theUrl, callback)
-{
-    var jsontest = [{ name: 'not john', job: "being anyone but john" }, { name: "yon" }];
-    var theUrl = "http://localhost:8888";
-    var xmlHttp = new XMLHttpRequest();
-    xmlHttp.onreadystatechange = function () {
-        if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
-            // callback(xmlHttp.responseText);
-            console.log(xmlHttp.responseText);
-    }
-    xmlHttp.open("GET", theUrl + "/test" + "?artists=" + JSON.stringify(jsontest), true); // true for asynchronous 
-    xmlHttp.send(null);
-}
