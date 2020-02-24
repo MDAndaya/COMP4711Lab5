@@ -196,7 +196,7 @@ async function saveArtists() {
         }
 
     } catch (error) {
-        console.log('caught a thing shit');
+        console.log('caught an error');
     }
 
 }
