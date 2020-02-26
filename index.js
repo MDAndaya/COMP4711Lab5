@@ -111,4 +111,4 @@ app.get('/loadartists/:search', function (req, res) {
 });
 
 app.listen(process.env.PORT || 3000);
-console.log('server started\nlistening on port' + port);
+console.log('server started\nlistening');
