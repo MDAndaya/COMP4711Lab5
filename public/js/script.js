@@ -1,10 +1,12 @@
 loadArtists();
 
+var url = 'https://mdandaya-artistapp.herokuapp.com/loadartists/';
+
 function loadArtists(search = '') {
     clearUI();
 
     try {
-        let url = 'https://mdandayaartistapp.herokuapp.com/loadartists/' + search;
+        let url = url + search;
         fetch(url,
             {
                 method: 'GET'
@@ -41,7 +43,6 @@ function saveArtist(name, about, imageurl) {
     var a = { "name": name, "about": about, "imageurl": imageurl };
 
     try {
-        let url = 'https://mdandayaartistapp.herokuapp.com/saveartist';
         fetch(url, {
             method: 'POST',
             headers: {
@@ -177,7 +178,6 @@ function deleteNode(child) {
     var a = { "name": name, "about": about, "imageurl": imageurl };
 
     try {
-        let url = 'https://mdandayaartistapp.herokuapp.com/deleteartist';
         fetch(url, {
             method: 'POST',
             headers: {

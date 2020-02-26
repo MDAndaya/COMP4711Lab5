@@ -81,7 +81,7 @@ app.post('/deleteartist', function (req, res) {
 /**
  * Returns content of artists.json.
  */
-app.get('/loadartists/', function (req, res) {
+app.get('/loadartists', function (req, res) {
     console.log('reading artists.json')
     fs.readFile('artists.json', (err, data) => {
         if (err) throw err;
