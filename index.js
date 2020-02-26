@@ -101,9 +101,6 @@ app.get('/loadartists/:search', function (req, res) {
         console.log('Loading artists');
 
         data = JSON.parse(data);
-        console.log('/////////////////////////');
-        console.log(data);
-        console.log(data[0].name);
         var filteredData = [];
         for (let i = 0; i < data.length; i++) {
             if (data[i].name.toLowerCase().includes(req.params.search.toLowerCase())) {
