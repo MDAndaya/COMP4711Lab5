@@ -29,7 +29,11 @@ function clearUI() {
     while (container.firstChild) {
         container.removeChild(container.lastChild);
     }
+}
 
+function search() {
+    var target = document.getElementById("search-bar").value;
+    loadArtists(target);
 }
 
 function saveArtist(name, about, imageurl) {
@@ -55,54 +59,6 @@ function saveArtist(name, about, imageurl) {
         console.log('error in saveArtist()');
     }
 }
-
-
-
-
-
-
-
-
-
-
-////////////////////////////////////////////////////////////////
-// loadArtists();
-
-// /**
-//  * fetch() request for data from node express server index.js
-//  */
-// async function loadArtists() {
-
-//     var artists = [];
-
-//     try {
-//         let url = 'http://localhost:8888/loadartists/k';
-//         let response = await fetch(url,
-//             {
-//                 method: 'GET'
-//             });
-
-//         if (response.ok) { // if HTTP-status is 200-299
-//             // get the response body (the method explained below)
-//             console.log('loading artists');
-//             if (artists = await response.json()) {
-//                 for (var i = 0; i < artists.length; i++) {
-//                     let a = artists[i];
-//                     addArtistToUI(a.name, a.about, a.imageurl);
-//                 }
-//             }
-//         } else {
-//             alert("HTTP-Error: " + response.status);
-//         }
-
-//     } catch (error) {
-//         console.log('caught a different thing in load');
-//     }
-
-// }
-
-// Clears search filters applied to the web page.
-// clearSearch();
 
 /**
  * Generates input nodes to create a new artist card.
@@ -210,59 +166,6 @@ function addArtistToUI(name, about, imageurl) {
     console.log(card);
 }
 
-// /**
-//  * fetch() request to post artists JSON array to index.js.
-//  */
-// async function saveArtists() {
-
-//     // element to search through
-//     let element = document.getElementById("flex-container");
-
-//     let artists = [];
-
-//     var children = element.childNodes;
-//     for (let i = 1; i < children.length; i++) {
-
-//         let item = children[i];
-//         let name;
-//         let about;
-//         let imageurl;
-
-//         name = item.getElementsByClassName("description")[0].getElementsByTagName("strong")[0].textContent;
-//         about = item.getElementsByClassName("description")[0].getElementsByTagName("span")[0].textContent;
-//         imageurl = item.getElementsByTagName("img")[0].getAttributeNode("src").value;
-
-//         let a = { "name": name, "about": about, "imageurl": imageurl };
-//         artists.push(a);
-//     }
-
-    // try {
-    //     let url = 'http://localhost:8888/saveartists';
-    //     let response = await fetch(url,
-    //         {
-    //             method: 'POST',
-    //             headers: {
-    //                 'Accept': 'application/json',
-    //                 'Content-Type': 'application/json'
-    //             },
-    //             body: JSON.stringify(artists)
-    //         });
-
-    //     if (response.ok) { // if HTTP-status is 200-299
-    //         // get the response body (the method explained below)
-    //         if (response = await response.text()) {
-    //             console.log(response);
-    //         }
-    //     } else {
-    //         alert("HTTP-Error: " + response.status);
-    //     }
-
-    // } catch (error) {
-    //     console.log('caught an error');
-    // }
-
-// }
-
 /**
  * Deletes node from JSON and reloads.
  * @param {*} child 
@@ -294,62 +197,3 @@ function deleteNode(child) {
         console.log('error in saveArtist()');
     }
 }
-
-function search() {
-    var target = document.getElementById("search-bar").value;
-    loadArtists(target);
-
-}
-
-// /**
-//  * Filters through artist nodes and hides nodes with non-matching names.
-//  */
-// function search() {
-
-//     // element to search through
-//     let element = document.getElementById("flex-container");
-
-//     // name to search for
-//     let targetName = document.getElementById("search-bar").value;
-
-//     // if target is empty, clear all filters
-//     if (targetName === "") {
-//         clearSearch();
-//         return;
-//     }
-//     var children = element.childNodes;
-//     for (let i = 1; i < children.length; i++) {
-
-//         let item = children[i];
-
-//         let name;
-
-//         name = item.getElementsByClassName("description")[0].getElementsByTagName("strong")[0].textContent;
-
-//         console.log("target name: " + targetName + ", " + "found: " + name);
-
-//         if (name.toLowerCase().includes(targetName.toLowerCase())) {
-//             item.style.display = "flex";
-//         } else {
-//             item.style.display = "none";
-//         }
-//     }
-// }
-
-// /**
-//  * Reveals all hidden artist nodes.
-//  */
-// function clearSearch() {
-
-//     console.log("clearing");
-
-//     // element to search through
-//     let element = document.getElementById("flex-container");
-
-//     var children = element.childNodes;
-//     for (let i = 1; i < children.length; i++) {
-//         let item = children[i];
-//         item.style.display = "flex";
-//     }
-// }
-
