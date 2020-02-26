@@ -99,6 +99,38 @@ function createArtistParams() {
     let top = document.getElementById("top").appendChild(addDiv);
 }
 
+
+/**
+ * Deletes node from JSON and reloads.
+ * @param {*} child 
+ */
+function deleteNode(child) {
+    var parent = child.parentNode;
+    var imageurl = parent.children[0].getAttributeNode("src").value;
+    var name = parent.children[1].children[0].textContent;
+    var about = parent.children[1].children[2].textContent;
+
+    var a = { "name": name, "about": about, "imageurl": imageurl };
+
+    try {
+        fetch('/deleteartist', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(a)
+        })
+            .then((res) => {
+                console.log(res);
+                loadArtists();
+            });
+
+    } catch (error) {
+        console.log('error in saveArtist()');
+    }
+}
+
 /**
  * Collects parameters for artist card and sends to addArtistToUI() function.
  */
@@ -161,35 +193,4 @@ function addArtistToUI(name, about, imageurl) {
 
     let container = document.getElementById("flex-container").appendChild(card);
     console.log(card);
-}
-
-/**
- * Deletes node from JSON and reloads.
- * @param {*} child 
- */
-function deleteNode(child) {
-    var parent = child.parentNode;
-    var imageurl = parent.children[0].getAttributeNode("src").value;
-    var name = parent.children[1].children[0].textContent;
-    var about = parent.children[1].children[2].textContent;
-
-    var a = { "name": name, "about": about, "imageurl": imageurl };
-
-    try {
-        fetch('/deleteartist', {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(a)
-        })
-            .then((res) => {
-                console.log(res);
-                loadArtists();
-            });
-
-    } catch (error) {
-        console.log('error in saveArtist()');
-    }
 }

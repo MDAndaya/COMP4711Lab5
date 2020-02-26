@@ -16,37 +16,36 @@ app.get('/', function (req, res) {
 });
 
 /**
- * Saves content to artists.json.
+ * Returns content of artists.json.
  */
-app.post('/saveartist', function (req, res) {
-    console.log('saving to artist.json');
-
-    var data = (req.body);
-    console.log(data);
-
-    if (data) {
-
-        if (!isImageUrl(data.imageurl)) {
-            data.imageurl = '/images/silhouette.jpg';
-        }
-
-        var newData = [];
-        fs.readFile('artists.json', (err, oldData) => {
-            if (err) throw err;
-            newData = JSON.parse(oldData);
-            newData.push(data);
-            newData = JSON.stringify(newData);
-
-            fs.writeFile('artists.json', newData, (err) => {
-                if (err) throw err;
-                console.log('saved to artists.json');
-                res.send('artist saved');
-            });
-
-        });
-    }
+app.get('/loadartists', function (req, res) {
+    console.log('reading artists.json')
+    fs.readFile('artists.json', (err, data) => {
+        if (err) throw err;
+        console.log('Loading artists');
+        res.send(JSON.parse(data));
+    });
 });
 
+/**
+ * Returns content of artists.json.
+ */
+app.get('/loadartists/:search', function (req, res) {
+    console.log('reading artists.json')
+    fs.readFile('artists.json', (err, data) => {
+        if (err) throw err;
+        console.log('Loading artists');
+
+        data = JSON.parse(data);
+        var filteredData = [];
+        for (let i = 0; i < data.length; i++) {
+            if (data[i].name.toLowerCase().includes(req.params.search.toLowerCase())) {
+                filteredData.push(data[i]);
+            }
+        }
+        res.send(filteredData);
+    });
+});
 
 app.post('/deleteartist', function (req, res) {
     console.log('deleting artist from artist.json');
@@ -79,35 +78,35 @@ app.post('/deleteartist', function (req, res) {
 });
 
 /**
- * Returns content of artists.json.
+ * Saves content to artists.json.
  */
-app.get('/loadartists', function (req, res) {
-    console.log('reading artists.json')
-    fs.readFile('artists.json', (err, data) => {
-        if (err) throw err;
-        console.log('Loading artists');
-        res.send(JSON.parse(data));
-    });
-});
+app.post('/saveartist', function (req, res) {
+    console.log('saving to artist.json');
 
-/**
- * Returns content of artists.json.
- */
-app.get('/loadartists/:search', function (req, res) {
-    console.log('reading artists.json')
-    fs.readFile('artists.json', (err, data) => {
-        if (err) throw err;
-        console.log('Loading artists');
+    var data = (req.body);
+    console.log(data);
 
-        data = JSON.parse(data);
-        var filteredData = [];
-        for (let i = 0; i < data.length; i++) {
-            if (data[i].name.toLowerCase().includes(req.params.search.toLowerCase())) {
-                filteredData.push(data[i]);
-            }
+    if (data) {
+
+        if (!isImageUrl(data.imageurl)) {
+            data.imageurl = '/images/silhouette.jpg';
         }
-        res.send(filteredData);
-    });
+
+        var newData = [];
+        fs.readFile('artists.json', (err, oldData) => {
+            if (err) throw err;
+            newData = JSON.parse(oldData);
+            newData.push(data);
+            newData = JSON.stringify(newData);
+
+            fs.writeFile('artists.json', newData, (err) => {
+                if (err) throw err;
+                console.log('saved to artists.json');
+                res.send('artist saved');
+            });
+
+        });
+    }
 });
 
 app.listen(process.env.PORT || 3000);
