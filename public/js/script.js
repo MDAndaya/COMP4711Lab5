@@ -1,10 +1,9 @@
 loadArtists();
 
-var url = 'https://mdandaya-artistapp.herokuapp.com/loadartists/';
+var url = 'https://mdandaya-artistapp.herokuapp.com/';
 
 function loadArtists(search = '') {
     clearUI();
-
     try {
         let url = url + search;
         fetch(url,
