@@ -4,6 +4,7 @@ var app = express();
 var path = require('path');
 var fs = require('fs');
 var bodyParser = require('body-parser');
+const isImageUrl = require('is-image-url');
 
 //Here we are configuring express to use body-parser as middle-ware.
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -23,7 +24,13 @@ app.post('/saveartist', function (req, res) {
 
     var data = (req.body);
     console.log(data);
+
     if (data) {
+
+        if (!isImageUrl(data.imageurl)) {
+            data.imageurl = '/images/silhouette.jpg';
+        }
+
         var newData = [];
         fs.readFile('artists.json', (err, oldData) => {
             if (err) throw err;
@@ -40,6 +47,7 @@ app.post('/saveartist', function (req, res) {
         });
     }
 });
+
 
 app.post('/deleteartist', function (req, res) {
     console.log('deleting artist from artist.json');

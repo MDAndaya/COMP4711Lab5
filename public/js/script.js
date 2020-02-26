@@ -51,7 +51,6 @@ function saveArtist(name, about, imageurl) {
             body: JSON.stringify(a)
         })
             .then((res) => {
-                console.log(res);
                 loadArtists();
             });
 
@@ -132,7 +131,6 @@ function addArtistToUI(name, about, imageurl) {
 
     let image = document.createElement("img");
     image.setAttribute("src", imageurl);
-    image.setAttribute("onerror", "this.onerror=null;this.src='images/silhouette.jpg';")
 
     let description = document.createElement("div");
     description.setAttribute("class", "description");
