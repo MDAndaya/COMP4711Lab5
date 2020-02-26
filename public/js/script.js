@@ -3,7 +3,9 @@ loadArtists();
 function loadArtists(search = '') {
     clearUI();
     try {
-        fetch('/loadartists/' + search,
+        if (search != '')
+            search = '/' + search;
+        fetch('/loadartists' + search,
             {
                 method: 'GET'
             })
@@ -39,7 +41,7 @@ function saveArtist(name, about, imageurl) {
     var a = { "name": name, "about": about, "imageurl": imageurl };
 
     try {
-        fetch('/saveartist/', {
+        fetch('/saveartist', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -174,7 +176,7 @@ function deleteNode(child) {
     var a = { "name": name, "about": about, "imageurl": imageurl };
 
     try {
-        fetch('/deleteartist/', {
+        fetch('/deleteartist', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
